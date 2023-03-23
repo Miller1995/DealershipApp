@@ -1,0 +1,17 @@
+
+CREATE TABLE car (
+					id_car bigint not null auto_increment primary key,
+                    brand varchar(32),
+                    model varchar(32),
+                    vin varchar(32),
+                    date_of_manufactured date,
+                    color varchar(32),
+                    price decimal(10,3)
+                    );
+
+INSERT INTO car (brand, model, vin, date_of_manufactured, color, price)
+		VALUES ('Ferrari', '599 GTB', '1FTHF25M5RNB23608', '2011-07-09', 'Green', 22500.00),
+				('Honda', 'AQUATRAX R-12', '1C3CDFBA1DD312227', '2005-11-11', 'Silver', 9000.00),
+                ('Ford', 'E-250 ECONOLINE', '5N1AA08A46N713649', '2017-05-28', 'Brown', 18700.00),
+                ('Mercedes-Benz', 'B class', '4T1BG22K1XU418953', '2005-12-23', 'Blue', 4000.00),
+                ('Mercedes-Benz', 'C class', '5N1AA08A46N713649', '2002-08-20', 'Black', 27000.00);
