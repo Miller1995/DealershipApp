@@ -6,10 +6,10 @@ public class Car {
     private long id;
     private String brand;
     private String model;
-    private LocalDate dateOfManufactured;
-    private float price;
     private String vin;
+    private LocalDate dateOfManufactured;
     private String color;
+    private float price;
 
     public long getId() {
         return id;
@@ -35,28 +35,20 @@ public class Car {
         this.model = model;
     }
 
-    public LocalDate getDateOfManufactured() {
-        return dateOfManufactured;
-    }
-
-    public void setDateOfManufactured(LocalDate dateOfManufactured) {
-        this.dateOfManufactured = dateOfManufactured;
-    }
-
-    public float getPrice() {
-        return price;
-    }
-
-    public void setPrice(float price) {
-        this.price = price;
-    }
-
     public String getVin() {
         return vin;
     }
 
     public void setVin(String vin) {
         this.vin = vin;
+    }
+
+    public LocalDate getDateOfManufactured() {
+        return dateOfManufactured;
+    }
+
+    public void setDateOfManufactured(LocalDate dateOfManufactured) {
+        this.dateOfManufactured = dateOfManufactured;
     }
 
     public String getColor() {
@@ -67,15 +59,24 @@ public class Car {
         this.color = color;
     }
 
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
     @Override
     public String toString() {
         return "Car{" +
-                "brand='" + brand + '\'' +
+                "id=" + id +
+                ", brand='" + brand + '\'' +
                 ", model='" + model + '\'' +
+                ", vin='" + vin + '\'' +
                 ", dateOfManufactured=" + dateOfManufactured +
-                ", price=" + price +
-                ", vinCode='" + vin + '\'' +
                 ", color='" + color + '\'' +
+                ", price=" + price +
                 '}';
     }
 }
