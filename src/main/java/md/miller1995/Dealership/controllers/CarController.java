@@ -1,7 +1,7 @@
 package md.miller1995.Dealership.controllers;
 
 import md.miller1995.Dealership.models.entities.Car;
-import md.miller1995.Dealership.services.CarService;
+import md.miller1995.Dealership.services.CarServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,16 +13,16 @@ import java.util.List;
 @RequestMapping("/api/cars")
 public class CarController {
 
-    private CarService carService;
+    private CarServiceImp carServiceImp;
 
     @Autowired
-    public CarController(CarService carService){
-        this.carService = carService;
+    public CarController(CarServiceImp carServiceImp){
+        this.carServiceImp = carServiceImp;
     }
 
     @GetMapping()
     public List<Car> getCars(){
-        return carService.findAllCar();
+        return carServiceImp.findAllCars();
     }
 
 }
