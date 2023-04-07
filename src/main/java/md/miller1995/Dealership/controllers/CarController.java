@@ -1,6 +1,6 @@
 package md.miller1995.Dealership.controllers;
 
-import md.miller1995.Dealership.models.Car;
+import md.miller1995.Dealership.models.entities.Car;
 import md.miller1995.Dealership.services.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

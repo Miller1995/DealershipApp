@@ -1,6 +1,6 @@
 package md.miller1995.Dealership.services;
 
-import md.miller1995.Dealership.models.Car;
+import md.miller1995.Dealership.models.entities.Car;
 import md.miller1995.Dealership.repositories.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
