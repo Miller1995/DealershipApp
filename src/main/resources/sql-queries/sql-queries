@@ -1,6 +1,6 @@
 
-CREATE TABLE car (
-					id_car bigint not null auto_increment primary key,
+CREATE TABLE cars (
+					id bigint not null auto_increment primary key,
                     brand varchar(32),
                     model varchar(32),
                     vin varchar(32),
@@ -9,7 +9,7 @@ CREATE TABLE car (
                     price decimal(10,3)
                     );
 
-INSERT INTO car (brand, model, vin, date_of_manufactured, color, price)
+INSERT INTO cars (brand, model, vin, date_of_manufactured, color, price)
 		VALUES ('Ferrari', '599 GTB', '1FTHF25M5RNB23608', '2011-07-09', 'Green', 22500.00),
 				('Honda', 'AQUATRAX R-12', '1C3CDFBA1DD312227', '2005-11-11', 'Silver', 9000.00),
                 ('Ford', 'E-250 ECONOLINE', '5N1AA08A46N713649', '2017-05-28', 'Brown', 18700.00),
