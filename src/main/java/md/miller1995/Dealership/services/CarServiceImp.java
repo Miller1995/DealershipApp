@@ -28,5 +28,4 @@ public class CarServiceImp implements CarService{
         Optional<Car> foundCar = carRepository.findById(id);
         return foundCar.orElse(null);
     }
-
 }

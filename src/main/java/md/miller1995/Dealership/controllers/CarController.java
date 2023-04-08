@@ -24,5 +24,4 @@ public class CarController {
     public List<Car> getCars(){
         return carServiceImp.findAllCars();
     }
-
 }
