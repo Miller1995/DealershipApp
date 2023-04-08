@@ -24,7 +24,7 @@ public class CarServiceImp implements CarService{
         return carRepository.findAll();
     }
 
-    public Car findOneCar(long id){
+    public Car findById(long id){
         Optional<Car> foundCar = carRepository.findById(id);
         return foundCar.orElse(null);
     }

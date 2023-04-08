@@ -31,6 +31,4 @@ public class Car {
     private String color;
     @Column(name = "price")
     private float price;
-
-
 }
