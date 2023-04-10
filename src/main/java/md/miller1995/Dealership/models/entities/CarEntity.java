@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Car {
+public class CarEntity {
     @Id
     @Column(name = "id")
     private long id;

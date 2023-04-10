@@ -1,6 +1,7 @@
 package md.miller1995.Dealership.services;
 
-import md.miller1995.Dealership.models.entities.Car;
+import md.miller1995.Dealership.models.dto.CarDTO;
+import md.miller1995.Dealership.models.entities.CarEntity;
 import md.miller1995.Dealership.repositories.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,12 +21,23 @@ public class CarServiceImp implements CarService{
         this.carRepository = carRepository;
     }
 
-    public List<Car> findAllCars(){
+    public List<CarEntity> findAllCars(){
         return carRepository.findAll();
     }
 
-    public Car findById(long id){
-        Optional<Car> foundCar = carRepository.findById(id);
+    public CarEntity findById(long id){
+        Optional<CarEntity> foundCar = carRepository.findById(id);
         return foundCar.orElse(null);
+    }
+
+    @Override
+    public CarDTO CarEntityToCarDTO(CarEntity carEntity) {
+        CarDTO carDTO = new CarDTO();
+        carDTO.setModel(carEntity.getModel());
+        carDTO.setBrand(carEntity.getBrand());
+        carDTO.setColor(carEntity.getColor());
+        carDTO.setDateOfManufactured(carEntity.getDateOfManufactured());
+        carDTO.setPrice(carEntity.getPrice());
+        return carDTO;
     }
 }

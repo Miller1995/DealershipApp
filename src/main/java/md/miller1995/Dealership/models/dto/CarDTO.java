@@ -8,14 +8,16 @@ public class CarDTO {
     private String model;
     private LocalDate dateOfManufactured;
     private String color;
+    private float price;
 
     public CarDTO(){}
 
-    public CarDTO (String brand, String model, LocalDate dateOfManufactured, String color){
+    public CarDTO (String brand, String model, LocalDate dateOfManufactured, String color, float price){
         this.brand = brand;
         this.model = model;
         this.dateOfManufactured = dateOfManufactured;
         this.color = color;
+        this.price = price;
     }
 
     public String getBrand(){
@@ -48,5 +50,13 @@ public class CarDTO {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public float getPrice(){
+        return price;
+    }
+
+    public void setPrice(float price){
+        this.price = price;
     }
 }

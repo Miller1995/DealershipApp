@@ -1,38 +1,32 @@
 package md.miller1995.Dealership.controllers;
 
-import md.miller1995.Dealership.models.entities.Car;
-import md.miller1995.Dealership.services.CarServiceImp;
+import md.miller1995.Dealership.models.dto.CarDTO;
+import md.miller1995.Dealership.models.entities.CarEntity;
+import md.miller1995.Dealership.services.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api/cars")
 public class CarController {
 
-    private CarServiceImp carServiceImp;
+    private CarService carService;
 
     @Autowired
-    public CarController(CarServiceImp carServiceImp){
-        this.carServiceImp = carServiceImp;
-    }
-
-    @GetMapping()
-    public List<Car> getCars(){
-        return carServiceImp.findAllCars();
+    public CarController(CarService carService){
+        this.carService = carService;
     }
 
     @GetMapping("/{id}")
-    public Car getCarById(@PathVariable(name = "id") long id){
-        /* Because we need to transport this object trough internet,
-            we need to mapper this object initial and
-            after sent object like response in get request...
-            ( need build 2 methods in Service, these methods will mapper object -> convertedToCarDTO and convertedToCar)
-         */
-        return carServiceImp.findById(id);
+    public ResponseEntity<CarDTO> getCarById(@PathVariable(name = "id") long id){
+        CarEntity carEntity = carService.findById(id);
+        CarDTO carDTO = carService.CarEntityToCarDTO(carEntity);
+
+        return new ResponseEntity<CarDTO>(carDTO, HttpStatus.OK);
     }
 }

@@ -1,11 +1,13 @@
 package md.miller1995.Dealership.services;
 
-import md.miller1995.Dealership.models.entities.Car;
+import md.miller1995.Dealership.models.dto.CarDTO;
+import md.miller1995.Dealership.models.entities.CarEntity;
 
 import java.util.List;
 
 public interface CarService {
 
-    List<Car> findAllCars();
-    Car findById(long id);
+    List<CarEntity> findAllCars();
+    CarEntity findById(long id);
+    CarDTO CarEntityToCarDTO(CarEntity carEntity);
 }
