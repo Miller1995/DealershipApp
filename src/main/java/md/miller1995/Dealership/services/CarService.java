@@ -9,5 +9,5 @@ public interface CarService {
 
     List<CarEntity> findAllCars();
     CarEntity findById(long id);
-    CarDTO CarEntityToCarDTO(CarEntity carEntity);
+    CarDTO carEntityToCarDTO(CarEntity carEntity);
 }
