@@ -39,16 +39,17 @@ public class CarServiceImp implements CarService{
         return  carDTO;
     }
 
-//    @Override
-//    public CarDTO carEntityToCarDTO(CarEntity carEntity) {
-//        CarDTO carDTO = new CarDTO();
-//        carDTO.setModel(carEntity.getModel());
-//        carDTO.setBrand(carEntity.getBrand());
-//        carDTO.setColor(carEntity.getColor());
-//        carDTO.setDateOfManufactured(carEntity.getDateOfManufactured());
-//        carDTO.setPrice(carEntity.getPrice());
-//        return carDTO;
-//    }
+     /*
+    @Override
+    public CarDTO carEntityToCarDTO(CarEntity carEntity) {
+        CarDTO carDTO = new CarDTO();
+        carDTO.setModel(carEntity.getModel());
+        carDTO.setBrand(carEntity.getBrand());
+        carDTO.setColor(carEntity.getColor());
+        carDTO.setDateOfManufactured(carEntity.getDateOfManufactured());
+        carDTO.setPrice(carEntity.getPrice());
+        return carDTO;
+    } */
 
 
 }
