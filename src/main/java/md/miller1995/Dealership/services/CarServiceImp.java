@@ -26,18 +26,18 @@ public class CarServiceImp implements CarService{
         this.modelMapper = modelMapper;
     }
 
-    public List<CarEntity> findAllCars(){
-        return carRepository.findAll();
-    }
-
+    @Override
     public CarEntity findById(long id){
         Optional<CarEntity> foundCar = carRepository.findById(id);
         return foundCar.orElse(null);
     }
 
     @Override
-    public List<CarEntity> findByModel(String model) {
-         return carRepository.findCarByModel(model);
+    public List<CarDTO> findAllCarsByModel(String model) {
+        List<CarEntity> carEntityList = carRepository.findCarEntityByModel(model);
+        List<CarDTO> carDTOList = carEntityListToCarDTOList(carEntityList);
+
+        return carDTOList;
     }
 
     @Override
@@ -45,12 +45,11 @@ public class CarServiceImp implements CarService{
         return modelMapper.map(carEntity, CarDTO.class);
     }
 
+    @Override
     public List<CarDTO> carEntityListToCarDTOList(List<CarEntity> carEntityList){
         return carEntityList
                 .stream()
                 .map(cars -> modelMapper.map(cars, CarDTO.class))
                 .collect(Collectors.toList());
     }
-
-
 }

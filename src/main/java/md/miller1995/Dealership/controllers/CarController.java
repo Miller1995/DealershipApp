@@ -30,9 +30,8 @@ public class CarController {
     }
 
     @GetMapping("/search/by")
-    public ResponseEntity<List<CarDTO>> findCarByModel(@RequestParam(value = "model") String model){
-        List<CarEntity> carEntityList = carService.findByModel(model);
-        List<CarDTO> carDTOList = carService.carEntityListToCarDTOList(carEntityList);
+    public ResponseEntity<List<CarDTO>> findAllCarsByModel(@RequestParam(value = "model") String model){
+        List<CarDTO> carDTOList = carService.findAllCarsByModel(model);
 
         return new ResponseEntity<List<CarDTO>>(carDTOList, HttpStatus.OK);
     }

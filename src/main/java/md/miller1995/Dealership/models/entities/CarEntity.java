@@ -10,8 +10,8 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "cars")
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class CarEntity {
 
     @Id
@@ -24,8 +24,8 @@ public class CarEntity {
     private String model;
     @Column(name = "vin")
     private String vin;
-    @Column(name = "date_of_manufactured")
-    private LocalDate dateOfManufactured;
+    @Column(name = "created_at")
+    private LocalDate createdAt;
     @Column(name = "color")
     private String color;
     @Column(name = "price")

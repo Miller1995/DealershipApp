@@ -27,7 +27,7 @@ public interface CarService {
      * @param model
      * @return
      */
-    List<CarEntity> findByModel(String model);
+    List<CarDTO> findAllCarsByModel(String model);
 
 
     /** Method that allowed mapping object from CarEntity to CarDTO, using Model Mapper
