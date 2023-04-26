@@ -7,7 +7,47 @@ import java.util.List;
 
 public interface CarService {
 
-    List<CarEntity> findAllCars();
+
+    /** Method that find an object Car by and ID
+     *
+     * @author Anton Nirca
+     * @since 18/04/2023
+     *
+     * @param id
+     * @return object Car or null
+     */
     CarEntity findById(long id);
+
+
+    /**
+     *
+     * @author Anton Nirca
+     * @since 26/04/2023
+     *
+     * @param model
+     * @return
+     */
+    List<CarEntity> findByModel(String model);
+
+
+    /** Method that allowed mapping object from CarEntity to CarDTO, using Model Mapper
+     *
+     * @author Anton Nirca
+     * @since 18/04/2023
+     *
+     * @param carEntity
+     * @return object CarDTO
+     */
     CarDTO carEntityToCarDTO(CarEntity carEntity);
+
+
+    /** Method that allowed mapping list of objects from CarEntity to CarDTO, using Model Mapper
+     *
+     * @author Anton Nirca
+     * @since 26/04/2023
+     *
+     * @param carEntityList
+     * @return list of objects CarDTO
+     */
+    List<CarDTO> carEntityListToCarDTOList(List<CarEntity> carEntityList);
 }

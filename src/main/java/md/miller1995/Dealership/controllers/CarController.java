@@ -6,10 +6,9 @@ import md.miller1995.Dealership.services.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/cars")
@@ -22,11 +21,19 @@ public class CarController {
         this.carService = carService;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/search/by/{id}")
     public ResponseEntity<CarDTO> getCarById(@PathVariable(name = "id") long id){
         CarEntity carEntity = carService.findById(id);
         CarDTO carDTO = carService.carEntityToCarDTO(carEntity);
 
         return new ResponseEntity<CarDTO>(carDTO, HttpStatus.OK);
+    }
+
+    @GetMapping("/search/by")
+    public ResponseEntity<List<CarDTO>> findCarByModel(@RequestParam(value = "model") String model){
+        List<CarEntity> carEntityList = carService.findByModel(model);
+        List<CarDTO> carDTOList = carService.carEntityListToCarDTOList(carEntityList);
+
+        return new ResponseEntity<List<CarDTO>>(carDTOList, HttpStatus.OK);
     }
 }

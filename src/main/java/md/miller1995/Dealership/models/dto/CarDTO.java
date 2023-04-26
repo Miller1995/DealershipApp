@@ -2,9 +2,11 @@ package md.miller1995.Dealership.models.dto;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 
 public class CarDTO implements Serializable {
+
     private String brand;
     private String model;
     private LocalDate dateOfManufactured;
