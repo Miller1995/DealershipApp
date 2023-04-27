@@ -1,5 +1,6 @@
 package md.miller1995.Dealership.controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
 import md.miller1995.Dealership.models.dto.CarDTO;
 import md.miller1995.Dealership.models.entities.CarEntity;
 import md.miller1995.Dealership.services.CarService;
@@ -21,7 +22,8 @@ public class CarController {
         this.carService = carService;
     }
 
-    @GetMapping("/search/by/{id}")
+    @GetMapping("/{id}")
+    @Operation(description = "route to find a car by ID")
     public ResponseEntity<CarDTO> getCarById(@PathVariable(name = "id") long id){
         CarEntity carEntity = carService.findById(id);
         CarDTO carDTO = carService.carEntityToCarDTO(carEntity);
@@ -29,7 +31,8 @@ public class CarController {
         return new ResponseEntity<CarDTO>(carDTO, HttpStatus.OK);
     }
 
-    @GetMapping("/search/by")
+    @GetMapping("")
+    @Operation(description = "Route to find all cars by model")
     public ResponseEntity<List<CarDTO>> findAllCarsByModel(@RequestParam(value = "model") String model){
         List<CarDTO> carDTOList = carService.findAllCarsByModel(model);
 
