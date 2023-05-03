@@ -11,19 +11,19 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
 @DataJpaTest
 class CarRepositoryTest {
 
     @Autowired
     private CarRepository carRepository;
-    CarEntity carEntity;
+    private CarEntity carEntity;
 
     @BeforeEach
     void setUp() {
-
         //given
         carEntity = new CarEntity(
-                1L,
+                2L,
                 "Mercedes",
                 "A Class",
                 "134334VCNY66",
@@ -31,37 +31,30 @@ class CarRepositoryTest {
                 "blue",
                 2999
         );
-
         carRepository.save(carEntity);
     }
 
     @AfterEach
     void tearDown() {
-
         carEntity = null;
         carRepository.deleteAll();
     }
 
-
-    // Test case positive
+    // SUCCEED
     @Test
     void testShouldCheckIfCarEntityWasFindByModel() {
-
         // when
         List<CarEntity> carEntityList = carRepository.findCarEntityByModel("A Class");
-
         // then
         assertThat(carEntityList.get(0).getId()).isEqualTo(carEntity.getId());
         assertThat(carEntityList.get(0).getBrand()).isEqualTo(carEntity.getBrand());
     }
 
-    //Test case negative
+    // FAILURE
     @Test
     void testShouldCheckIfCarEntityWasNotFindByModel() {
-
         // when
         List<CarEntity> carEntityList = carRepository.findCarEntityByModel("B Class");
-
         //then
         assertThat(carEntityList.isEmpty()).isTrue();
     }
