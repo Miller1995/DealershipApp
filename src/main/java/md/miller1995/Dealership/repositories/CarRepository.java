@@ -1,6 +1,5 @@
 package md.miller1995.Dealership.repositories;
 
-import md.miller1995.Dealership.models.dto.CarDTO;
 import md.miller1995.Dealership.models.entities.CarEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
