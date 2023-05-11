@@ -1,6 +1,6 @@
 package md.miller1995.Dealership.services.users;
 
-import md.miller1995.Dealership.models.entities.UserEntity;
+import md.miller1995.Dealership.models.entities.UserAuthEntity;
 import md.miller1995.Dealership.repositories.UserRepository;
 import md.miller1995.Dealership.securities.UserAuthDetails;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +23,10 @@ public class UserAuthDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<UserEntity> user = userRepository.findUserEntityByUsername(username);
-        if(user.isEmpty())
+        Optional<UserAuthEntity> user = userRepository.findUserEntityByUsername(username);
+        if(user.isEmpty()){
             throw new UsernameNotFoundException("user not found!");
-
+        }
         return new UserAuthDetails(user.get());
     }
 }

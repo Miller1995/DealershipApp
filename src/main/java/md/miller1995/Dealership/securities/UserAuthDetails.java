@@ -1,6 +1,6 @@
 package md.miller1995.Dealership.securities;
 
-import md.miller1995.Dealership.models.entities.UserEntity;
+import md.miller1995.Dealership.models.entities.UserAuthEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -8,10 +8,10 @@ import java.util.Collection;
 
 public class UserAuthDetails implements UserDetails {
 
-    private final UserEntity userEntity;
+    private final UserAuthEntity userAuthEntity;
 
-    public UserAuthDetails(UserEntity userEntity) {
-        this.userEntity = userEntity;
+    public UserAuthDetails(UserAuthEntity userAuthEntity) {
+        this.userAuthEntity = userAuthEntity;
     }
 
     @Override
@@ -21,12 +21,12 @@ public class UserAuthDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return this.userEntity.getUserPassword();
+        return this.userAuthEntity.getUserPassword();
     }
 
     @Override
     public String getUsername() {
-        return this.userEntity.getUsername();
+        return this.userAuthEntity.getUsername();
     }
 
     @Override
@@ -50,7 +50,7 @@ public class UserAuthDetails implements UserDetails {
     }
 
     // need for get info/data about authenticated user
-    public UserEntity getUserEntity(){
-        return this.userEntity;
+    public UserAuthEntity getUserEntity(){
+        return this.userAuthEntity;
     }
 }

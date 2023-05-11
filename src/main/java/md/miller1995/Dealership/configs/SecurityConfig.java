@@ -1,6 +1,6 @@
 package md.miller1995.Dealership.configs;
 
-import md.miller1995.Dealership.securities.UserAuthDetailsProviderImpl;
+import md.miller1995.Dealership.securities.UserAuthProviderImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,10 +12,10 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private final UserAuthDetailsProviderImpl userAuthDetailsProvider;
+    private final UserAuthProviderImpl userAuthDetailsProvider;
 
     @Autowired
-    public SecurityConfig(UserAuthDetailsProviderImpl authProvider) {
+    public SecurityConfig(UserAuthProviderImpl authProvider) {
         this.userAuthDetailsProvider = authProvider;
     }
 
@@ -24,8 +24,8 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http.authenticationProvider(userAuthDetailsProvider);
-
-        http.csrf().disable()
+        http
+            .csrf().disable()
                 .authorizeHttpRequests()
                 .requestMatchers("/auth/login", "/auth/registration", "/error")
                 .permitAll()

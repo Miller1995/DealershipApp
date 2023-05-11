@@ -13,12 +13,12 @@ import org.springframework.stereotype.Component;
 import java.util.Collections;
 
 @Component
-public class UserAuthDetailsProviderImpl implements AuthenticationProvider {
+public class UserAuthProviderImpl implements AuthenticationProvider {
 
     private final UserAuthDetailsServiceImpl userAuthDetailsServiceImpl;
 
     @Autowired
-    public UserAuthDetailsProviderImpl(UserAuthDetailsServiceImpl userAuthDetailsServiceImpl) {
+    public UserAuthProviderImpl(UserAuthDetailsServiceImpl userAuthDetailsServiceImpl) {
         this.userAuthDetailsServiceImpl = userAuthDetailsServiceImpl;
     }
 
@@ -32,9 +32,9 @@ public class UserAuthDetailsProviderImpl implements AuthenticationProvider {
 
         String password = authentication.getCredentials().toString();
 
-        if (! password.equals(userDetails.getPassword()))
+        if (!password.equals(userDetails.getPassword())){
             throw new BadCredentialsException("Incorrect password!");
-
+        }
         return new UsernamePasswordAuthenticationToken(userDetails, password, Collections.emptyList());
     }
 
