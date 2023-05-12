@@ -8,34 +8,33 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-
-import java.util.Collections;
 
 @Component
 public class UserAuthProviderImpl implements AuthenticationProvider {
 
     private final UserAuthDetailsServiceImpl userAuthDetailsServiceImpl;
+    private  final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserAuthProviderImpl(UserAuthDetailsServiceImpl userAuthDetailsServiceImpl) {
+    public UserAuthProviderImpl(UserAuthDetailsServiceImpl userAuthDetailsServiceImpl, PasswordEncoder passwordEncoder) {
         this.userAuthDetailsServiceImpl = userAuthDetailsServiceImpl;
+        this.passwordEncoder = passwordEncoder;
     }
-
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         // logic for authentication
         String username = authentication.getName();
-
         UserDetails userDetails = userAuthDetailsServiceImpl.loadUserByUsername(username);
 
         String password = authentication.getCredentials().toString();
-
-        if (!password.equals(userDetails.getPassword())){
+        if (!passwordEncoder.matches(password, userDetails.getPassword())){
             throw new BadCredentialsException("Incorrect password!");
         }
-        return new UsernamePasswordAuthenticationToken(userDetails, password, Collections.emptyList());
+
+        return new UsernamePasswordAuthenticationToken(userDetails, password, authentication.getAuthorities());
     }
 
     @Override
