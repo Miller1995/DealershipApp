@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS cars;
 
 CREATE TABLE cars (
 					id bigint not null auto_increment primary key,
@@ -15,3 +16,24 @@ INSERT INTO cars (brand, model, vin, date_of_manufactured, color, price)
                 ('Ford', 'E-250 ECONOLINE', '5N1AA08A46N713649', '2017-05-28', 'Brown', 18700.00),
                 ('Mercedes-Benz', 'B class', '4T1BG22K1XU418953', '2005-12-23', 'Blue', 4000.00),
                 ('Mercedes-Benz', 'C class', '5N1AA08A46N713649', '2002-08-20', 'Black', 27000.00);
+
+---------------------------------------------------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS users_auth;
+
+CREATE TABLE users_auth (
+        id bigint PRIMARY KEY AUTO_INCREMENT NOT NULL,
+        username varchar(32) NOT NULL UNIQUE,
+        date_of_birth date NOT NULL,
+        user_password varchar(255) NOT NULL
+        );
+
+INSERT INTO users_auth (username, date_of_birth, user_password)
+        VALUES ('Anton', '1995-05-25','password');
+
+INSERT INTO users_auth (username, date_of_birth, user_password)
+        VALUES ('Mike', '2000-10-10','password');
+
+SELECT * FROM users_auth;
+
+---------------------------------------------------------------------------------------------------------------------
