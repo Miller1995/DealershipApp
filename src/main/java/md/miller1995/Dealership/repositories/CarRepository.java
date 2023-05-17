@@ -8,7 +8,6 @@ import java.util.List;
 
 @Repository
 public interface CarRepository extends JpaRepository<CarEntity,Long> {
-    // TODO custom query if is necessary
 
     /** This method create a custom query, that select all data from table after parameter/column "model"
      *

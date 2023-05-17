@@ -8,10 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -27,29 +25,29 @@ public class CarServiceImp implements CarService{
     }
 
     @Override
-    public CarEntity findById(long id){
-        Optional<CarEntity> foundCar = carRepository.findById(id);
+    public CarDTO findById(long id){
+        Optional<CarDTO> foundCar = Optional.ofNullable(carOptionalEntityToCarDTO(carRepository.findById(id)));
         return foundCar.orElse(null);
     }
 
     @Override
     public List<CarDTO> findAllCarsByModel(String model) {
         List<CarEntity> carEntityList = carRepository.findCarEntityByModel(model);
-        List<CarDTO> carDTOList = carEntityListToCarDTOList(carEntityList);
-
-        return carDTOList;
+        return carEntityListToCarDTOList(carEntityList);
     }
 
-    @Override
-    public CarDTO carEntityToCarDTO(CarEntity carEntity) {
+    private CarDTO carEntityToCarDTO(CarEntity carEntity) {
         return modelMapper.map(carEntity, CarDTO.class);
     }
 
-    @Override
-    public List<CarDTO> carEntityListToCarDTOList(List<CarEntity> carEntityList){
+    private CarDTO carOptionalEntityToCarDTO(Optional<CarEntity> carEntity){
+        return modelMapper.map(carEntity, CarDTO.class);
+    }
+
+    private List<CarDTO> carEntityListToCarDTOList(List<CarEntity> carEntityList){
         return carEntityList
                 .stream()
                 .map(cars -> modelMapper.map(cars, CarDTO.class))
-                .collect(Collectors.toList());
+                .toList();
     }
 }

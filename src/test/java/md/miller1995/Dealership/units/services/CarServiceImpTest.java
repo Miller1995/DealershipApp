@@ -1,9 +1,8 @@
-package md.miller1995.Dealership.services;
+package md.miller1995.Dealership.units.services;
 
-import md.miller1995.Dealership.models.dto.CarDTO;
 import md.miller1995.Dealership.models.entities.CarEntity;
 import md.miller1995.Dealership.repositories.CarRepository;
-import org.junit.jupiter.api.Disabled;
+import md.miller1995.Dealership.services.CarServiceImp;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.modelmapper.ModelMapper;
@@ -11,10 +10,8 @@ import org.modelmapper.ModelMapper;
 import java.time.LocalDate;
 
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.assertj.core.api.Assertions.assertThat;
 
-public class CarServiceImpTest {
+ class CarServiceImpTest {
 
     // read about @ExtendWith(MockitoExtension.class) , @Mock , MockitoAnnotations.openMocks(this) and AutoCloseable , autoCloseable.close()
     private final CarRepository carRepository = Mockito.mock(CarRepository.class);  // alternative can be with -> @Mock
@@ -27,7 +24,7 @@ public class CarServiceImpTest {
      */
 
     @Test
-    public void testShouldFindCarEntityById(){
+    void testShouldFindCarEntityById(){
         //given
         CarEntity newCarEntity =  new CarEntity(
                 1L,
@@ -60,35 +57,5 @@ public class CarServiceImpTest {
         carServiceImp.findAllCarsByModel(newCarEntity.getModel());
         //then
         verify(carRepository).findCarEntityByModel(newCarEntity.getModel());
-    }
-
-    @Test
-    void testShouldConvertCarEntityToCarDTO() {
-        //given
-        CarEntity carEntity = new CarEntity(
-                1L,
-                "Mercedes",
-                "A Class",
-                "134334VCNY66",
-                LocalDate.now(),
-                "blue",
-                2999
-        );
-        CarDTO carDTO = new CarDTO("Mercedes",
-                "A Class",
-                LocalDate.now(),
-                "blue",
-                2999
-        );
-        when(modelMapper.map(carEntity, CarDTO.class)).thenReturn(carDTO);
-        //when
-        CarDTO carToCompare = carServiceImp.carEntityToCarDTO(carEntity);
-        //then
-        assertThat(carDTO).isEqualTo(carToCompare);
-    }
-
-    @Test
-    @Disabled
-    void testShouldConvertCarEntityListToCarDTOList() {
     }
 }
