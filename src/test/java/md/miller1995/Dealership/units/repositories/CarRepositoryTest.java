@@ -1,6 +1,7 @@
-package md.miller1995.Dealership.repositories;
+package md.miller1995.Dealership.units.repositories;
 
 import md.miller1995.Dealership.models.entities.CarEntity;
+import md.miller1995.Dealership.repositories.CarRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,7 +24,7 @@ class CarRepositoryTest {
     void setUp() {
         //given
         carEntity = new CarEntity(
-                2L,
+                1L,
                 "Mercedes",
                 "A Class",
                 "134334VCNY66",
