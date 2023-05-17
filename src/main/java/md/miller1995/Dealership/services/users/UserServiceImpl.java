@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService{
     @Override
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void updateUser(UserAuthEntity userAuthEntity) {
-
+        //TODO
     }
 
     private UserAuthEntity convertUserAuhtDTOToUserAuthEntity(UserAuthDTO userAuthDTO) {

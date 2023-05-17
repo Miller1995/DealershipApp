@@ -18,5 +18,5 @@ public interface UserRepository extends JpaRepository<UserAuthEntity, Long> {
      * @param username
      * @return UserAuthEntity
      */
-    Optional<UserAuthEntity> findUserEntityByUsername(String username);
+    Optional<UserAuthEntity> findUserAuthEntityByUsername(String username);
 }
