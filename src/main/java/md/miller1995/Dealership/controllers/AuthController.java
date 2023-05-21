@@ -1,36 +1,37 @@
 package md.miller1995.Dealership.controllers;
 
-import md.miller1995.Dealership.models.dto.UserAuthDTO;
-import md.miller1995.Dealership.services.users.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import md.miller1995.Dealership.models.dto.auth.UserAuthDTO;
+import md.miller1995.Dealership.models.dto.auth.UserRegisterDTO;
+import md.miller1995.Dealership.services.auth.AuthService;
+import md.miller1995.Dealership.utils.AuthResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
-@RequestMapping("/auth")
+
+@RestController
+@RequestMapping("api/v1/auth")
 public class AuthController {
 
-    private final UserService userService;
+    private final AuthService authService;
 
     @Autowired
-    public AuthController(UserService userService) {
-        this.userService = userService;
-    }
-
-    @GetMapping("/login")
-    public ResponseEntity<HttpStatus> loginPage(){
-        //TODO
-        return ResponseEntity.ok(HttpStatus.OK);
+    public AuthController(AuthService authService) {
+        this.authService = authService;
     }
 
     @PostMapping("/registration")
-    public ResponseEntity<HttpStatus> registrationPage(@RequestBody UserAuthDTO userAuthDTO){
-        userService.registerUser(userAuthDTO);
-        return ResponseEntity.ok(HttpStatus.OK);
+    @Operation(summary = "this endpoint is used to register a new user in database")
+    public ResponseEntity<UserRegisterDTO> performRegistration(@RequestBody UserRegisterDTO userRegisterDTO){
+        authService.register(userRegisterDTO);
+        return ResponseEntity.ok(userRegisterDTO);
+    }
+
+    @PostMapping("/authenticate")
+    @Operation(summary = "this endpoint is used to login the user in app and return the jwt token for this user")
+    public ResponseEntity<AuthResponse> performAuthenticate(@RequestBody UserAuthDTO userAuthDTO){
+        AuthResponse authResponse = authService.authenticate(userAuthDTO);
+        return ResponseEntity.ok(authResponse);
     }
 }
