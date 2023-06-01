@@ -7,7 +7,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -15,35 +17,32 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     private final UserAuthProviderImpl userAuthDetailsProvider;
+    private final JWTAuthFilter jwtAuthFilter;
 
     @Autowired
-    public SecurityConfig(UserAuthProviderImpl authProvider) {
+    public SecurityConfig(UserAuthProviderImpl authProvider, JWTAuthFilter jwtAuthFilter) {
         this.userAuthDetailsProvider = authProvider;
+        this.jwtAuthFilter = jwtAuthFilter;
     }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-        http.authenticationProvider(userAuthDetailsProvider);
-
         http
-            .csrf().disable()
+            .csrf()
+            .disable()
             .authorizeHttpRequests()
-            .requestMatchers("/auth/login", "/auth/registration", "/error").permitAll()
-            .anyRequest().hasAnyRole("USER", "ADMIN")
+            .requestMatchers("/api/v1/auth/**")
+            .permitAll()
+            .anyRequest()
+            .hasAnyRole("USER", "ADMIN", "SUPER_ADMIN")
                 .and()
-                .formLogin()
-                .loginPage("/auth/login")
-                .defaultSuccessUrl("/api/users", true)
-                .failureUrl("/auth/login")
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                     .and()
-                    .logout()
-                    .logoutUrl("/logout")
-                    .invalidateHttpSession(true)
-                    .logoutSuccessUrl("/auth/login")
-                    .deleteCookies("JSESSIONID")
-                        .and()
-                        .httpBasic();
+                    .authenticationProvider(userAuthDetailsProvider)
+                    .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+
         return http.build();
     }
 }

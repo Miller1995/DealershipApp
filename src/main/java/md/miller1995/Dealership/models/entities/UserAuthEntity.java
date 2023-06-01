@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "users_auth")
+@Table(name = "users")
 public class UserAuthEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +21,8 @@ public class UserAuthEntity {
     private String username;
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
+    @Column(name = "user_email")
+    private String email;
     @Column(name = "user_password")
     private String userPassword;
     @Column(name = "user_role")

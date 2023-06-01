@@ -1,18 +1,20 @@
-package md.miller1995.Dealership.models.dto;
+package md.miller1995.Dealership.models.dto.auth;
 
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserAuthDTO implements Serializable {
     @NotBlank(message = "Username can't be empty")
     private String username;
-    @NotBlank(message = "Date can't be null and format should be yyyy-MM-dd")
-    private LocalDate dateOfBirth;
     @NotBlank(message = "Password can't be empty")
     private String userPassword;
 }
