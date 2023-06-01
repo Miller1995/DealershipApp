@@ -22,16 +22,14 @@ public class AuthController {
     }
 
     @PostMapping("/registration")
-    @Operation(summary = "this endpoint is used to register a new user in database")
+    @Operation(summary = "This endpoint is used to register a new user in database")
     public ResponseEntity<UserRegisterDTO> performRegistration(@RequestBody UserRegisterDTO userRegisterDTO){
-        authService.register(userRegisterDTO);
-        return ResponseEntity.ok(userRegisterDTO);
+        return ResponseEntity.ok(authService.register(userRegisterDTO));
     }
 
     @PostMapping("/authenticate")
-    @Operation(summary = "this endpoint is used to login the user in app and return the jwt token for this user")
+    @Operation(summary = "This endpoint is used to login the user in app and return the jwt token for this user")
     public ResponseEntity<AuthResponse> performAuthenticate(@RequestBody UserAuthDTO userAuthDTO){
-        AuthResponse authResponse = authService.authenticate(userAuthDTO);
-        return ResponseEntity.ok(authResponse);
+        return ResponseEntity.ok(authService.authenticate(userAuthDTO));
     }
 }

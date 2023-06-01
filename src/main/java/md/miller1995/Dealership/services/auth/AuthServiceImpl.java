@@ -11,7 +11,6 @@ import md.miller1995.Dealership.utils.AuthResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,18 +24,20 @@ public class AuthServiceImpl implements AuthService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final JWTUtil jwtUtil;
+    private final ObjectMapper objectMapper;
 
     @Autowired
-    public AuthServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, JWTUtil jwtUtil) {
+    public AuthServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, JWTUtil jwtUtil, ObjectMapper objectMapper) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
+        this.objectMapper = objectMapper;
     }
 
     @Override
     @Transactional
-    public void register(@NonNull UserRegisterDTO userRegisterDTO) {
+    public UserRegisterDTO register(@NonNull UserRegisterDTO userRegisterDTO) {
         var user = UserRegisterDTO.builder()
                 .username(userRegisterDTO.getUsername())
                 .dateOfBirth(userRegisterDTO.getDateOfBirth())
@@ -46,7 +47,9 @@ public class AuthServiceImpl implements AuthService {
 
         UserAuthEntity userAuthEntity = convertUserRegisterDTOToUserAuthEntity(user);
         userAuthEntity.setUserRole("ROLE_USER");
-        userRepository.save(userAuthEntity);
+        UserAuthEntity userAuthEntitySaved =  userRepository.save(userAuthEntity);
+        UserRegisterDTO userRegisterReturn = convertUserAuthEntityToUserRegisterDTO(userAuthEntitySaved);
+        return userRegisterReturn;
     }
 
     @Override
@@ -81,8 +84,12 @@ public class AuthServiceImpl implements AuthService {
 //    }
 
     private UserAuthEntity convertUserRegisterDTOToUserAuthEntity(UserRegisterDTO userRegisterDTO) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.registerModule(new JavaTimeModule());
-        return objectMapper.convertValue(userRegisterDTO, UserAuthEntity.class);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        return mapper.convertValue(userRegisterDTO, UserAuthEntity.class);
+    }
+
+    private UserRegisterDTO convertUserAuthEntityToUserRegisterDTO(UserAuthEntity userAuthEntity){
+        return objectMapper.convertValue(userAuthEntity, UserRegisterDTO.class);
     }
 }

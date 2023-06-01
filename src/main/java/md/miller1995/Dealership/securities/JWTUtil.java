@@ -29,7 +29,6 @@ public class JWTUtil {
                 .sign(Algorithm.HMAC256(jwtSecret));
     }
 
-
     public String validateTokenAndRetrieveClaim(String token) throws JWTVerificationException {
         JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(jwtSecret))
                 .withSubject("User details")
